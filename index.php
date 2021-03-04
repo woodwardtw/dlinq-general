@@ -1,8 +1,8 @@
 <?php 
 /*
 Plugin Name: DLINQ general modifications
-Plugin URI:  https://github.com/
-Description: For stuff that's magical
+Plugin URI:  https://github.com/woodwardtw/dlinq-general
+Description: For various generic changes
 Version:     1.0
 Author:      DLINQ
 Author URI:  http://dlinq.middcreate.net
@@ -34,6 +34,7 @@ function old_events_custom_query($args, $index) {
     // feel free to change it here
     $args['orderby'] = 'date';
     $args['order'] = 'ASC';
+    $index = 1;//slider ID
 
     // $index is an ID of slider that you're modifying
 
