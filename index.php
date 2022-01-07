@@ -72,6 +72,19 @@ function detox_added_page_content ( $content ) {
 }
 add_filter( 'the_content', 'detox_added_page_content');
 
+function detox_author_to_rest_api($response, $post, $request) {
+ 
+    if (isset($post)) {
+        $author_id = get_fields($post->post_author);
+        $response->data['detox_author'] = get_the_author_meta('display_name', $author_id);
+    }
+    return $response;
+}
+add_filter('rest_prepare_post', 'detox_author_to_rest_api', 10, 3);//if you leave it as post, it's just for posts
+
+
+
+
 //LOGGER -- like frogger but more useful
 
 if ( ! function_exists('write_log')) {
