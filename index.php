@@ -48,7 +48,7 @@ add_filter('new_royalslider_posts_slider_query_args', 'old_events_custom_query',
 // Listen for publishing of a new post from https://davidwalsh.name/wordpress-publish-post-hook
 function detox_json_cache($post_id, $post, $update) {
    //write_log(__LINE__);
-  if($post->post_type === 'post') {
+  if($post->post_type === 'post' && in_category('')) {
    $url = 'https://dlinq.middcreate.net/wp-json/wp/v2/posts/?categories=391&per_page=50';
    $file = file_get_contents($url);
    $destination = get_home_path();
