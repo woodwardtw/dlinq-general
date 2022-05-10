@@ -82,6 +82,48 @@ function detox_author_to_rest_api($response, $post, $request) {
 }
 add_filter('rest_prepare_post', 'detox_author_to_rest_api', 10, 3);//if you leave it as post, it's just for posts
 
+//search fix for multisite relevanssi
+add_action( 'the_post', 'rlv_switch_blog' );
+/**
+ * Switches the blog if necessary.
+ *
+ * If the current post blog is different than the current blog, switches the blog.
+ * If the blog has been switched, makes sure it's restored first to keep the switch
+ * stack clean.
+ *
+ * @param WP_Post $post The post object.
+ */
+function rlv_switch_blog( $post ) {
+    global $relevanssi_blog_id, $relevanssi_original_blog_id;
+    
+    if ( ! isset( $post->blog_id ) ) {
+        return;
+    }
+
+    if ( ! isset( $relevanssi_original_blog_id ) ) {
+        $relevanssi_original_blog_id = get_current_blog_id();
+    }
+
+    if ( $post->blog_id !== get_current_blog_id() ) {
+        if ( isset( $relevanssi_blog_id ) && $relevanssi_blog_id !== $post->blog_id ) {
+            restore_current_blog();
+        }
+        switch_to_blog( $post->blog_id );
+        $relevanssi_blog_id = $post->blog_id;
+    }
+}
+
+add_shortcode( 'relevanssi_restore_blog', 'rlv_restore_blog' );
+/**
+ * Restores the blog if the blog ID is not the original value.
+ */
+function rlv_restore_blog() {
+    global $relevanssi_blog_id, $relevanssi_original_blog_id;
+    if ( $relevanssi_blog_id !== $relevanssi_original_blog_id ) {
+        restore_current_blog();
+    }
+}
+
 //LOGGER -- like frogger but more useful
 
 if ( ! function_exists('write_log')) {
