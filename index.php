@@ -22,7 +22,7 @@ function dlinq_general_load_scripts() {
     $version= '1.0'; 
     $in_footer = true;    
     wp_enqueue_script('dlinq_general-main-js', plugin_dir_url( __FILE__) . 'js/dlinq_general-main.js', $deps, $version, $in_footer); 
-    //wp_enqueue_style( 'prefix-main-css', plugin_dir_url( __FILE__) . 'css/prefix-main.css');
+    wp_enqueue_style( 'dlinq_custom_css', plugin_dir_url( __FILE__) . 'css/dlinq_custom-main.css');
 }
 
 //change sort order of royal slider plugin for events to go from oldest to youngest rather than reverse
@@ -216,3 +216,46 @@ function create_article_cpt() {
   $wp_rewrite->flush_rules();
 }
 add_action( 'init', 'create_article_cpt', 0 );
+
+
+/* Add a paragraph only to Pages. */
+function dlinq_doc_change ( $content ) {
+    $post_id = get_the_ID();
+
+    if ( get_post_type() == 'avada_portfolio' ) {
+        // foreach ( get_the_terms( get_the_ID(), 'portfolio_category' ) as $tax ) {
+        //         $tax->name;
+        //     }
+        $terms = get_the_terms( get_the_ID(), 'portfolio_category' );
+        $tech = false;
+       foreach ( $terms as $term ) {
+            if ( in_array( $term->name, ['Tech Resources'] ) && $tech == false) {
+                $tech = true;
+           }
+        }
+
+        $cats = get_the_terms( get_the_ID(), 'portfolio_category' );
+        if($tech == true){
+            $alert = "<div class='doc-alert'>📢 We're moving our documentation to a new system on July 1. <a href='https://dlinq.middcreate.net/documentation/'>Check out the new version now</a>. 📢</div>";
+            return $alert . $content;
+
+        } else {
+            return $content;
+        }
+       
+    }
+ 
+    return $content;
+}
+add_filter( 'the_content', 'dlinq_doc_change');
+
+ function array_match($needle, $haystack){
+        $haystack =  (array) $haystack;
+        $needle =  (array) $needle;
+        foreach ($needle as $key => $value) {
+            if( trim($value) != trim($haystack[$key]) ){
+                return false;
+            }
+        }
+        return true;
+    }

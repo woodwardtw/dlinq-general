@@ -1,0 +1,28 @@
+.doc-alert {
+	position: fixed;
+	text-align: center;
+	padding:  10px;
+	 -o-animation: fadeIt 5s ease-in-out; 
+	animation: fadeIt 5s ease-in-out; 
+	width:  100%;
+	bottom:  0;
+	left:  0;
+	z-index: 10000;
+	background-color: #fff;
+}
+
+.doc-alert a {
+	text-decoration: underline;
+}
+
+@-o-keyframes fadeIt {
+  0%   { background-color: #FFFFFF; }
+  50%  { background-color: green; }
+  100% { background-color: #FFFFFF; }
+}
+@keyframes fadeIt {
+  0%   { background-color: #FFFFFF; }
+  50%  { background-color: green; }
+  100% { background-color: #FFFFFF; }
+}
+
