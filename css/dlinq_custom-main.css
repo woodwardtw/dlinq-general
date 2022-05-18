@@ -1,7 +1,7 @@
 .doc-alert {
 	position: fixed;
 	text-align: center;
-	padding:  10px;
+	padding:  18px;
 	 -o-animation: fadeIt 5s ease-in-out; 
 	animation: fadeIt 5s ease-in-out; 
 	width:  100%;
@@ -12,6 +12,7 @@
 	border-left: 20px solid #0d395f;
 	border-right: 20px solid #0d395f;
 	transition: all .2s ease;
+	font-size: 1.2rem;
 }
 
 .doc-alert a {
@@ -19,9 +20,18 @@
 }
 
 @-o-keyframes fadeIt {
-  0%   { background-color: #FFFFFF; }
-  50%  { background-color: #e5f1fa; }
-  100% { background-color: #FFFFFF; }
+  0%   { background-color: #FFFFFF; 
+  		border-left: 0px solid green;
+	  	border-right: 0px solid green;
+  }
+  50%  { background-color: #e5f1fa; 
+  	border-left: 50px solid green;
+  	border-right: 50px solid green;
+  }
+  100% { background-color: #FFFFFF; 
+  	border-left: 20px solid green;
+  	border-right: 20px solid green;
+  }
 }
 @keyframes fadeIt {
   0%   { background-color: #FFFFFF;
