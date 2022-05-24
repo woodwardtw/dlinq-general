@@ -2,8 +2,8 @@
 	position: fixed;
 	text-align: center;
 	padding:  18px;
-	 -o-animation: fadeIt 5s ease-in-out; 
-	animation: fadeIt 5s ease-in-out; 
+	 -o-animation: animaniacIt 5s ease-in-out; 
+	animation: animaniacIt 5s ease-in-out; 
 	width:  100%;
 	bottom:  0;
 	left:  0;
@@ -19,7 +19,7 @@
 	text-decoration: underline;
 }
 
-@-o-keyframes fadeIt {
+@-o-keyframes animaniacIt {
   0%   { background-color: #FFFFFF; 
   		border-left: 0px solid green;
 	  	border-right: 0px solid green;
@@ -33,7 +33,7 @@
   	border-right: 20px solid green;
   }
 }
-@keyframes fadeIt {
+@keyframes animaniacIt {
   0%   { background-color: #FFFFFF;
 	  	border-left: 0px solid green;
 	  	border-right: 0px solid green; 
