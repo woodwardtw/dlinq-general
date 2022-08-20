@@ -218,7 +218,6 @@ function create_article_cpt() {
 add_action( 'init', 'create_article_cpt', 0 );
 
 
-/* Add a paragraph only to Pages. */
 function dlinq_doc_change ( $content ) {
     $post_id = get_the_ID();
 
