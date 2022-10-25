@@ -55,7 +55,7 @@ function detox_json_cache($post_id, $post, $update) {
    file_put_contents($destination . 'detox-2022/json/detox.json', $file);
   }
 }
-add_action('save_post', 'detox_json_cache', 10, 3);
+//add_action('save_post', 'detox_json_cache', 10, 3);
 
 function detox_added_page_content ( $content ) {
    global $post;
