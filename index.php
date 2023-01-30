@@ -46,6 +46,8 @@ add_filter('new_royalslider_posts_slider_query_args', 'old_events_custom_query',
 
 
 // Listen for publishing of a new post from https://davidwalsh.name/wordpress-publish-post-hook
+//if issues with this caching happen, check/change permissions on destination folder
+
 function detox_json_cache($post_id, $post, $update) {
    //write_log(__LINE__);
   if($post->post_type === 'post') {
@@ -55,7 +57,7 @@ function detox_json_cache($post_id, $post, $update) {
    file_put_contents($destination . 'detox-2022/json/detox.json', $file);
   }
 }
-//add_action('save_post', 'detox_json_cache', 10, 3);
+add_action('save_post', 'detox_json_cache', 10, 3);
 
 function detox_added_page_content ( $content ) {
    global $post;
@@ -70,7 +72,7 @@ function detox_added_page_content ( $content ) {
  
     return $content . '<div class="hide">' . $take_action . $keep_reading . '</div>';
 }
-add_filter( 'the_content', 'detox_added_page_content');
+//add_filter( 'the_content', 'detox_added_page_content');
 
 function detox_author_to_rest_api($response, $post, $request) {
  
@@ -258,3 +260,32 @@ add_filter( 'the_content', 'dlinq_doc_change');
         }
         return true;
     }
+
+//add media file size 
+// add_filter( 'manage_upload_columns', 'wpse_237131_add_column_file_size' );
+// add_action( 'manage_media_custom_column', 'wpse_237131_column_file_size', 10, 2 );
+
+// function wpse_237131_add_column_file_size( $columns ) { // Create the column
+//     $columns['filesize'] = 'File Size';
+//     return $columns;
+// }
+// function wpse_237131_column_file_size( $column_name, $media_item ) { // Display the file size
+//     if ( 'filesize' != $column_name || !wp_attachment_is_image( $media_item ) ) {
+//       return;
+//     }
+//     $filesize = filesize( get_attached_file( $media_item ) );
+//     $filesize = size_format($filesize, 2);
+//     echo $filesize;
+// }    
+
+//deals with changing permalinks in detox posts rss feed
+function fix_detox_links($post_permalink) {
+    if(has_category( 'digital-detox-2023', get_the_ID() )){
+    return 'https://dlinq.middcreate.net/detox-2023/post.html?id=' . get_the_ID(); 
+   } else {
+    return $post_permalink;
+   }
+    
+}
+add_filter('the_permalink_rss', 'fix_detox_links');
+add_filter('get_the_guid', 'fix_detox_links');
