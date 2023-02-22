@@ -289,3 +289,14 @@ function fix_detox_links($post_permalink) {
 }
 add_filter('the_permalink_rss', 'fix_detox_links');
 add_filter('get_the_guid', 'fix_detox_links');
+
+
+//LIMIT EMAILS TO MIDDLEBURY DOMAIN FOR CATALOG COURSE REQUEST
+
+new GW_Email_Domain_Validator( array(
+    'form_id'            => 15,
+    'field_id'           => 3,
+    'domains'            => array( 'middlebury.edu' ),
+    'validation_message' => __( 'Sorry. You have to use a Middlebury email domain.' ),
+    'mode'               => 'limit',
+) );
