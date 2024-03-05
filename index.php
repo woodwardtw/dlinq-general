@@ -21,7 +21,7 @@ function dlinq_general_load_scripts() {
     $deps = array('jquery');
     $version= '1.0'; 
     $in_footer = true;    
-    wp_enqueue_script('dlinq_general-main-js', plugin_dir_url( __FILE__) . 'js/dlinq_general-main.js', $deps, $version, $in_footer); 
+    //wp_enqueue_script('dlinq_general-main-js', plugin_dir_url( __FILE__) . 'js/dlinq_general-main.js', $deps, $version, $in_footer); 
     wp_enqueue_style( 'dlinq_custom_css', plugin_dir_url( __FILE__) . 'css/dlinq_custom-main.css');
 }
 
