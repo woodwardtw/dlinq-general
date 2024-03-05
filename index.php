@@ -27,60 +27,6 @@ function dlinq_general_load_scripts() {
 
 
 
-//search fix for multisite relevanssi
-add_action( 'the_post', 'rlv_switch_blog' );
-/**
- * Switches the blog if necessary.
- *
- * If the current post blog is different than the current blog, switches the blog.
- * If the blog has been switched, makes sure it's restored first to keep the switch
- * stack clean.
- *
- * @param WP_Post $post The post object.
- */
-function rlv_switch_blog( $post ) {
-    global $relevanssi_blog_id, $relevanssi_original_blog_id;
-    
-    if ( ! isset( $post->blog_id ) ) {
-        return;
-    }
-
-    if ( ! isset( $relevanssi_original_blog_id ) ) {
-        $relevanssi_original_blog_id = get_current_blog_id();
-    }
-
-    if ( $post->blog_id !== get_current_blog_id() ) {
-        if ( isset( $relevanssi_blog_id ) && $relevanssi_blog_id !== $post->blog_id ) {
-            restore_current_blog();
-        }
-        switch_to_blog( $post->blog_id );
-        $relevanssi_blog_id = $post->blog_id;
-    }
-}
-
-add_shortcode( 'relevanssi_restore_blog', 'rlv_restore_blog' );
-/**
- * Restores the blog if the blog ID is not the original value.
- */
-function rlv_restore_blog() {
-    global $relevanssi_blog_id, $relevanssi_original_blog_id;
-    if ( $relevanssi_blog_id !== $relevanssi_original_blog_id ) {
-        restore_current_blog();
-    }
-}
-
-
-add_filter( 'the_content', 'rlv_restore_shortcode', 1 );
- 
-function rlv_restore_shortcode( $content ) {
-     if ( is_search() ) {
-        //rlv_restore_blog();
-        switch_to_blog(1);
-        return $content;
-    } else {
-        return $content;
-    }
-}
 
 //LOGGER -- like frogger but more useful
 
